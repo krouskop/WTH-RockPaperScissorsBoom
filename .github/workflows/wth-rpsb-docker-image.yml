@@ -14,7 +14,7 @@ jobs:
       image: ${{ steps.image-name.outputs.image }}
 
     env:
-      registry: rvlabs.azurecr.io
+      registry: ghcr.io/rvlabs
       imageName: 'rockpaperscisors-server'
       imageDockerFile: 'Dockerfile-Server'
 
@@ -33,7 +33,7 @@ jobs:
       uses: docker/login-action@v1.8.0
       with:
         username: ${{ secrets.WTH_REGISTRY_UNAME }}
-        password: ${{ secrets.WTH_REGISTRY_UPASS }}
+        password: ${{ secrets.WTH_CR_PAT }}
         registry: ${{ env.registry }}
         
     - name: Build and push image
@@ -57,7 +57,7 @@ jobs:
     env:
       imageName: ${{ needs.Build-Image.outputs.image }}
       webApp: wth-rpsb-app-7603
-      registry: rvlabs.azurecr.io
+      registry: ghcr.io/rvlabs
 
     steps:
       - name: echo
@@ -69,7 +69,7 @@ jobs:
         uses: Azure/docker-login@v1
         with:
           username: ${{ secrets.WTH_REGISTRY_UNAME }}
-          password: ${{ secrets.WTH_REGISTRY_UPASS }}
+          password: ${{ secrets.WTH_CR_PAT }}
           login-server: ${{ env.registry }}
 
       - name: Azure WebApp
