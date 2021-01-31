@@ -47,7 +47,7 @@ jobs:
     - name: Set Image to Deploy
       id: image-name
       run: |
-        echo "::set-output name=image::${{ env.registry }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}"
+        echo "::set-output name=image::${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}"
       
 
   Deploy-Image:
