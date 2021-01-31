@@ -10,6 +10,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
+      registry: 'rvlabs.azurecr.io'
       imageName: 'rockpaperscisors-server'
       imageDockerFile: 'Dockerfile-Server'
 
@@ -32,4 +33,4 @@ jobs:
         context: ./Code
         file: ./${{ env.imageDockerFile }}
         push: true
-        tags: ${{ secrets.WTH_REGISTRY }}/${{ env.imageName }}:$(date +%s)
+        tags: ${{ env.registry }}/${{ env.imageName }}:$(date +%s)
