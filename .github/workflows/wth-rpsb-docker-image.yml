@@ -60,18 +60,22 @@ jobs:
       registry: rvlabs.azurecr.io
 
     steps:
+      - name: echo
+        run: |
+          echo "needs:  ${{ needs.Build-Image.outputs.image }}"
+          echo "env: ${{ env.imageName }}"
 
-    - name: Azure Container Registry Login
-      uses: Azure/docker-login@v1
-      with:
-        username: ${{ secrets.WTH_REGISTRY_UNAME }}
-        password: ${{ secrets.WTH_REGISTRY_UPASS }}
-        login-server: ${{ env.registry }}
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
+        with:
+          username: ${{ secrets.WTH_REGISTRY_UNAME }}
+          password: ${{ secrets.WTH_REGISTRY_UPASS }}
+          login-server: ${{ env.registry }}
 
-    - name: Azure WebApp
-      uses: Azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.webApp }} 
-        publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
-        images: ${{ needs.Build-Image.outputs.image }}
+      - name: Azure WebApp
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.webApp }} 
+          publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
+          images: ${{ needs.Build-Image.outputs.image }}
 
