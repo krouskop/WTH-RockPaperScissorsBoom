@@ -10,6 +10,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    outputs:
+      image: ${{ steps.image-name.outputs.image }}
+
     env:
       registry: rvlabs.azurecr.io
       imageName: 'rockpaperscisors-server'
@@ -33,10 +36,17 @@ jobs:
         password: ${{ secrets.WTH_REGISTRY_UPASS }}
         registry: ${{ env.registry }}
         
-    - name: Build and push Docker images
+    - name: Build and push image
       uses: docker/build-push-action@v2.2.1
       with:
         context: ./Code
         file: ./Code/${{ env.imageDockerFile }}
         push: true
         tags: ${{ env.registry }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}
+
+    - name: Set Image to Deploy
+      id: image-name
+      run: |
+        echo "::set-output name=image::${{ env.registry }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}"
+      
+
