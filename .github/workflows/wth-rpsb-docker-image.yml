@@ -50,3 +50,28 @@ jobs:
         echo "::set-output name=image::${{ env.registry }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}"
       
 
+  Deploy-Image:
+
+    runs-on: ubuntu-latest
+    needs: [Build-Image]
+    env:
+      imageName: ${{ needs.Build-Image.outputs.image }}
+      webApp: wth-rpsb-app-7603
+      registry: rvlabs.azurecr.io
+
+    steps:
+
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        username: ${{ secrets.WTH_REGISTRY_UNAME }}
+        password: ${{ secrets.WTH_REGISTRY_UPASS }}
+        login-server: ${{ env.registry }}
+
+    - name: Azure WebApp
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.webApp }} 
+        publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
+        images: ${{ env.imageName }}
+
