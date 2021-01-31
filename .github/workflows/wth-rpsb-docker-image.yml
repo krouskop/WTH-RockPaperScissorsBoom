@@ -15,6 +15,7 @@ jobs:
 
     env:
       registry: ghcr.io
+      orgName: rvlabs
       imageName: 'rockpaperscisors-server'
       imageDockerFile: 'Dockerfile-Server'
 
@@ -42,7 +43,7 @@ jobs:
         context: ./Code
         file: ./Code/${{ env.imageDockerFile }}
         push: true
-        tags: ${{ env.registry }}/${{ github.repository_owner }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}
+        tags: ${{ env.registry }}/${{ env.orgName }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}
 
     - name: Set Image to Deploy
       id: image-name
@@ -58,6 +59,7 @@ jobs:
       imageName: ${{ needs.Build-Image.outputs.image }}
       webApp: wth-rpsb-app-7603
       registry: ghcr.io
+      orgName: rvlabs
 
     steps:
       - name: echo
@@ -77,5 +79,5 @@ jobs:
         with:
           app-name: ${{ env.webApp }} 
           publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
-          images: ${{ env.registry }}/${{ github.repository_owner }}/${{ env.imageName }}
+          images: ${{ env.registry }}/${{ env.orgName }}/${{ env.imageName }}
 
