@@ -63,7 +63,7 @@ jobs:
       - name: echo
         run: |
           echo "needs:  ${{ needs.Build-Image.outputs.image }}"
-          echo "env: ${{ env.imageName }}"
+          echo "env: ${{ env.registry }}/${{ env.imageName }}"
 
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
@@ -77,5 +77,5 @@ jobs:
         with:
           app-name: ${{ env.webApp }} 
           publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
-          images: ${{ env.registry }}/${{ needs.Build-Image.outputs.image }}
+          images: "ghcr.io/rvlabs/${{ needs.Build-Image.outputs.image }}"
 
