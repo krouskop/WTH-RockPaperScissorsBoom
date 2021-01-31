@@ -21,7 +21,7 @@ jobs:
     - name: Image Tag
       id: image-tag
       run: |
-        echo '::set-output name=tag::$(date +%s)'
+        echo "::set-output name=tag::$(date +%s)"
 
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v1.1.1
