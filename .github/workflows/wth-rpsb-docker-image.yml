@@ -73,5 +73,5 @@ jobs:
       with:
         app-name: ${{ env.webApp }} 
         publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
-        images: ${{ env.imageName }}
+        images: ${{ needs.Build-Image.outputs.image }}
 
