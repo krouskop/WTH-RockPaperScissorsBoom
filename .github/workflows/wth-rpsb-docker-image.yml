@@ -67,13 +67,6 @@ jobs:
           echo "needs:  ${{ needs.Build-Image.outputs.image }}"
           echo "env: ${{ env.registry }}/${{ env.imageName }}"
 
-      - name: Docker Login
-        uses: docker/login-action@v1.8.0
-        with:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.WTH_CR_PAT }}
-          registry: ${{ env.registry }}
-
       - name: Azure WebApp
         uses: Azure/webapps-deploy@v2
         with:
