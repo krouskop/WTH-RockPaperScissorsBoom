@@ -14,8 +14,8 @@ jobs:
       image: ${{ steps.image-name.outputs.image }}
 
     env:
-      registry: ghcr.io
-      orgName: rvlabs
+      registry: 'https://ghcr.io'
+      ghOrgName: 'rvlabs'
       imageName: 'rockpaperscisors-server'
       imageDockerFile: 'Dockerfile-Server'
 
@@ -33,7 +33,7 @@ jobs:
     - name: Docker Login
       uses: docker/login-action@v1.8.0
       with:
-        username: ${{ github.repository_owner }}
+        username: ${{ env.ghOrgName }}
         password: ${{ secrets.WTH_CR_PAT }}
         registry: ${{ env.registry }}
         
@@ -43,7 +43,7 @@ jobs:
         context: ./Code
         file: ./Code/${{ env.imageDockerFile }}
         push: true
-        tags: ${{ env.registry }}/${{ env.orgName }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}
+        tags: ${{ env.registry }}/${{ env.ghOrgName }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}
 
     - name: Set Image to Deploy
       id: image-name
@@ -58,19 +58,19 @@ jobs:
     env:
       imageName: ${{ needs.Build-Image.outputs.image }}
       webApp: wth-rpsb-app-7603
-      registry: ghcr.io
-      orgName: rvlabs
+      registry: 'https://ghcr.io'
+      ghOrgName: 'rvlabs'
 
     steps:
       - name: echo
         run: |
-          echo "needs:  ${{ needs.Build-Image.outputs.image }}"
-          echo "env: ${{ env.registry }}/${{ env.imageName }}"
+          echo "#########################"
+          echo "env: ${{ env.registry }}/${{ env.ghOrgName }}/${{ env.imageName }}"
 
       - name: Azure WebApp
         uses: Azure/webapps-deploy@v2
         with:
           app-name: ${{ env.webApp }} 
           publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
-          images: ${{ env.registry }}/${{ env.orgName }}/${{ env.imageName }}
+          images: ${{ env.registry }}/${{ env.ghOrgName }}/${{ env.imageName }}
 
