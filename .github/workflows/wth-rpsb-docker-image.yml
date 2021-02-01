@@ -57,8 +57,8 @@ jobs:
     needs: [Build-Image]
     env:
       imageName: ${{ needs.Build-Image.outputs.image }}
-      webApp: wth-rpsb-app-7603
-      registry: 'https://ghcr.io'
+      webApp: 'wth-rpsb-app-7603'
+      registry: 'ghcr.io'
       ghOrgName: 'rvlabs'
 
     steps:
