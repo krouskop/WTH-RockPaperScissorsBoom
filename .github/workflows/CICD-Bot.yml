@@ -77,6 +77,6 @@ jobs:
         with:
           app-name: ${{ env.webApp }}
           slot-name: ${{ env.slot }}
-          publish-profile: ${{ secrets.WTH_WEBAPP_SITECRED }}
+          publish-profile: ${{ secrets.WTH_BOTWEBAPP_SITECRED }}
           images: ${{ env.registry }}/${{ env.ghOrgName }}/${{ env.imageName }}
 
