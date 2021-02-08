@@ -3,6 +3,8 @@ name: WTH RPSB - Docker Image CI
 on:
   push:
     branches: [ master ]
+    paths: 
+      - 'Code/RockPaperScissorsBoom.Server/**'
 
 jobs:
 
