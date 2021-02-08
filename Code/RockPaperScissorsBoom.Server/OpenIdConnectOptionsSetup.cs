@@ -108,6 +108,7 @@ namespace RockPaperScissorsBoom.Server
                 string signedInUserID = context.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
                 TokenCache userTokenCache = new MSALSessionCache(signedInUserID, context.HttpContext).GetMsalCacheInstance();
                 ConfidentialClientApplication cca = new ConfidentialClientApplication(AzureAdB2COptions.ClientId, AzureAdB2COptions.Authority, AzureAdB2COptions.RedirectUri, new ClientCredential(AzureAdB2COptions.ClientSecret), userTokenCache, null);
+                cca.ValidateAuthority = false;
                 try
                 {
                     AuthenticationResult result = await cca.AcquireTokenByAuthorizationCodeAsync(code, AzureAdB2COptions.ApiScopes.Split(' '));
