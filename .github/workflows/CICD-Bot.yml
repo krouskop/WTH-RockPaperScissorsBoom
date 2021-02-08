@@ -6,6 +6,8 @@ on:
     paths: 
       - 'Code/RockPaperScissorsBoom.ExampleBot/**'
 
+  workflow_dispatch:
+  
 jobs:
 
   Build-Image:
