@@ -21,7 +21,7 @@ jobs:
 
     - name: Zip
       run: |
-        zip -r 005-rockpaperscissorsboom.zip {{ github.workspace }}/Code/*
+        zip -r 005-rockpaperscissorsboom.zip ${{ github.workspace }}/Code
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.2
