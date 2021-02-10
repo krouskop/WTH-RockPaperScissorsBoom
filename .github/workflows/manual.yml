@@ -28,7 +28,7 @@ jobs:
 
     - name: Zip
       run: |
-        zip -r ${{ github.event.inputs.wth_name }}.zip ${{ github.workspace }}/Code
+        zip -r ${{ github.event.inputs.wth_name }}.zip ./Code
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.2
@@ -52,7 +52,7 @@ jobs:
         # An optional flag which indicates if we should update a release if it already exists. Defaults to false.
         allowUpdates: true
         # An optional set of paths representing artifacts to upload to the release. This may be a single path or a comma delimited list of paths (or globs)
-        artifact: '${{ github.workspace }}/${{ github.event.inputs.wth_name }}.zip'
+        artifacts: '${{ github.event.inputs.wth_name }}.zip'
         artifactContentType: zip
         # An optional body for the release.
         body: 'Release is mapped to year/month, and assets represent student resources for specified challenges'
