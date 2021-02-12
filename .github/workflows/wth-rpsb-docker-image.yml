@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
     paths: 
-      - 'Code/RockPaperScissorsBoom.Server/**'
+      - 'Student/Resources/Code/RockPaperScissorsBoom.Server/**'
 
   workflow_dispatch:
   
@@ -44,8 +44,8 @@ jobs:
     - name: Build and push image
       uses: docker/build-push-action@v2.2.1
       with:
-        context: ./Code
-        file: ./Code/${{ env.imageDockerFile }}
+        context: ./Student/Resources/Code
+        file: ./Student/Resources/Code/${{ env.imageDockerFile }}
         push: true
         tags: ${{ env.registry }}/${{ env.ghOrgName }}/${{ env.imageName }}:${{ steps.image-tag.outputs.tag }}
 
